@@ -6,13 +6,16 @@ const PASSWORD = encodeURIComponent(config.db_password);
 const DB = config.db_name;
 const HOST = config.db_host;
 
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB}?retryWrites=true&w=majority`;
+//CLOUD
+// const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB}?retryWrites=true&w=majority`;
+
+//LOCAL
+const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${HOST}/${DB}`;
 
 class MongoLib{
 
     constructor(){
         this.db_name = DB;
-        this.pageSize = config.page_size;
         this.client = MongoClient(MONGO_URI, { useNewUrlParser: true,  useUnifiedTopology: true });
     }
 
@@ -39,19 +42,19 @@ class MongoLib{
             .then( db => {
                 return db
                     .collection(collection)
-                    .find({ id: { '$all': idArray }})
+                    .find({ id: { '$in': idArray }})
                     .toArray();
             })
     }
 
-    select(collection,query,page){
+    select(collection,query,pageSize,pageNo){
         return this.connect()
             .then( db => {
                 return db
                     .collection(collection)
-                    .find(query)
-                    .limit(this.pageSize)
-                    .skip(this.pageSize*page)
+                    .find(query, { projection: { _id: false } })
+                    .limit(pageSize)
+                    .skip(pageSize*pageNo)
                     .toArray();
             });
     }
@@ -91,11 +94,22 @@ class MongoLib{
             .then( db => {
                 return db
                     .collection(collection)
-                    .find({},{ id: true, _id: false })
+                    .find({},{ projection: { id: true, _id: false } })
                     .sort({ id: -1 })
-                    .limit(1);
+                    .limit(1)
+                    .toArray();
             })
-            .then( result => result.id );
+            .then( result => result[0].id? result[0].id : 0 );
+    }
+
+    getToTalDocuments(collection,query){
+        return this.connect()
+            .then( db => {
+                return db 
+                    .collection(collection)
+                    .find(query)
+                    .count();
+            });
     }
 }
 

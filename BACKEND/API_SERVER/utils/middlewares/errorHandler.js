@@ -8,7 +8,7 @@ const logErrors = (error, req, res, next) => {
     next(error);
 }
 
-const wrapErrors = (error, req, res, next) => next(err.isBoom? err : boom.badImplementation(err));
+const wrapErrors = (error, req, res, next) => next(error.isBoom? error : boom.badImplementation(error));
 
 function errorHandler(error, req, res, next){
     const { output: { statusCode, payload } } = error;

@@ -7,11 +7,14 @@ const { config } = require('./config');
 const { notFoundHandler } = require('./utils/middlewares/notFoundHandler');
 const { logErrors, wrapErrors, errorHandler } = require('./utils/middlewares/errorHandler');
 
+const { moviesRoute } = require('./routes/MoviesRoute');
+
 //MIDDLEWARES TO PREPARE THE REQUEST
 app.use(cors());
 app.use(bodyParser.json());
 
 //APP ROUTES
+moviesRoute(app);
 
 //NOT FOUND ROUTE
 app.use(notFoundHandler);

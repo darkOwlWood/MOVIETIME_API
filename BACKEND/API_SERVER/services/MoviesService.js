@@ -10,7 +10,7 @@ class MoviesService{
 
     async getMovieById(id){
         const idArray = id.replace('[','').replace(']','').split(',').map(val => parseInt(val));
-        const movieData = await this.client.selectById(this.collection,idArray);
+        const movieData = await this.client.selectById(this.collection,{ id: { '$in': idArray }});
         return movieData
     }
 
@@ -77,18 +77,23 @@ class MoviesService{
         return { prev, next };
     }
 
+    async getMovieArray(prepareQuery,page){
+        const movieArray = await this.client.select(this.collection,prepareQuery,this.pageSize,page);
+        return movieArray;
+    }
+
     async getPaginateAnswer(page, baseUrl, query, prepareQuery){
         let pageResults = {};
         const count = await this.getTotalMovies(prepareQuery);
         const pages = Math.ceil(count/this.pageSize);
 
         if(page<=pages){
-            const movieDataArray = await this.client.select(this.collection,prepareQuery,this.pageSize,page-1);
+            const movieArray = await this.getMovieArray(prepareQuery,page-1);
             const fullUrl = this.getFullUrl(baseUrl,query);
             const { prev, next } = this.getPrevAndNextUrls(page,count,fullUrl);
             pageResults = {
                 "info":{ count, pages, next, prev },
-                "reults": movieDataArray,
+                "reults": movieArray,
             }
         }else{
             pageResults = { 'error': 'There is nothing here' };

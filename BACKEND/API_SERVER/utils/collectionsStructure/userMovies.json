@@ -1,13 +1,8 @@
 {
-    "user":{
-        "id": "",
-        "name": ""
-    },
+    "id": 0,
+    "user_id": "",
     "movies":[
-        {
-            "name": "",
-            "id": ""
-        }
+        "id"
     ],
     "created": ""
 }

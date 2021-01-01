@@ -37,12 +37,12 @@ class MongoLib{
         return MongoLib.connect;
     }
 
-    selectById(collection,idArray){
+    selectById(collection,query){
         return this.connect()
             .then( db => {
                 return db
                     .collection(collection)
-                    .find({ id: { '$in': idArray }})
+                    .find(query)
                     .toArray();
             })
     }
@@ -99,7 +99,7 @@ class MongoLib{
                     .limit(1)
                     .toArray();
             })
-            .then( result => result[0].id? result[0].id : 0 );
+            .then( result => result[0]? result[0].id : 0 );
     }
 
     getToTalDocuments(collection,query){

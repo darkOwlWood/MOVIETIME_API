@@ -1,15 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const PORT = 8089;
 
+const { config } = require('./config');
+const { notFoundHandler } = require('./utils/middlewares/notFoundHandler');
+const { wrapError, logError, errorHandler } = require('./utils/middlewares/errorHandler');
+
+//PARSERS
+app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/greet', (req, res, next) => {
-    const { body } = req;
-    console.log(body);
+//NOT FOUND
+app.use(notFoundHandler);
 
-    res.json({ backGreet: 'Hello world JS' });
-})
+//ERROR HANDLERS
+app.use(logError);
+app.use(wrapError);
+app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+app.listen(config.port, () => console.log(`http://localhost:${config.port}`));

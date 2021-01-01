@@ -7,9 +7,14 @@ const { config } = require('./config');
 const { notFoundHandler } = require('./utils/middlewares/notFoundHandler');
 const { wrapError, logError, errorHandler } = require('./utils/middlewares/errorHandler');
 
+const { authRoute } = require('./auth/AuthRoute');
+
 //PARSERS
 app.use(cors());
 app.use(bodyParser.json());
+
+//ROUTES
+authRoute(app);
 
 //NOT FOUND
 app.use(notFoundHandler);

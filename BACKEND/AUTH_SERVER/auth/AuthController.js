@@ -17,14 +17,20 @@ class AuthController{
         const { body:userModel } = req;
         try{
             const insertedId = await this.userService.insertUser(userModel);
-            const code = insertedId? 201 : 200;
-            const message = insertedId? 'Register complete' : 'Email already used'; 
-            res.status(code).json({ message });
+            res.status(insertedId? 201 : 200).json({ insertedId });
         }catch(err){
             next(err);
         }
     }
-    async login(req, res, next){}
+    async login(req, res, next){
+        const { accessToken } = req;
+        try{
+            res.json({ accessToken });
+        }catch(err){
+            next(err);
+        }
+    }
+
     async logout(req, res, next){}
 }
 

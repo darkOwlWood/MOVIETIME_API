@@ -14,4 +14,6 @@ const UserCreateModel = Joi.object({
     password:    JoiPassword.required(),
 });
 
-module.exports = { UserCreateModel };
+module.exports = { 
+    UserCreateModel,
+};

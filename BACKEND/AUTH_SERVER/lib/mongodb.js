@@ -36,7 +36,7 @@ class MongoLib{
     selectById(collection, query){
         return this.connect()
             .then( db => {
-                db
+                return db
                 .collection(collection)
                 .find(query)
                 .toArray();

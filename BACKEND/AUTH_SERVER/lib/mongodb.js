@@ -63,6 +63,16 @@ class MongoLib{
             .then( result => result.deletedCount );
     }
 
+    update(collection, query, data){
+        return this.connect()
+            .then( db => {
+                return db
+                    .collection(collection)
+                    .updateOne(query,data);
+            })
+            .then( result => result.modifiedCount );
+    }
+
     getTotalDocumetns(collection, query){
         return this.connect()
             .then( db => {

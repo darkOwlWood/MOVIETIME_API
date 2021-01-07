@@ -25,13 +25,14 @@ class AuthService{
     
         (await this.userIsLogin(userId)) && (await this.deleteChallange(userId));
         
-        const insertedId = await this.client.insert(this.collection,{ userId, challange });
+        const [createDate, updateDate] = [new Date(), new Date()];
+        const insertedId = await this.client.insert(this.collection,{ userId, challange, updateDate, createDate });
         const code =  insertedId? `${userId}:${verify}` : 0;
         return code;
     }
 
     async logout(code){ //<<---
-        const [ userId, verify = '' ] = code.split(':');
+        const [ userId, verify ] = code.split(':');
         const challange = await this.getUserChallange(userId);
         let resp = 0;
 
@@ -42,11 +43,13 @@ class AuthService{
     }
     
     async generateJWT(code){ //<<---
-        const [ userId, verify = '' ] = code.split(':');
+        const [ userId, verify ] = code.split(':');
         const challange = await this.getUserChallange(userId);
         let token = {};
 
         if((await this.userIsLogin(userId)) && (await bcrypt.compare(verify,challange))){
+            const updateDate = new Date();
+            await this.client.update(this.collection,{ challange },{ '$set': { updateDate } });
             token = jwt.sign({ userId },this.secretJwtAccess,{ expiresIn: this.expiresIn }); 
         }
 

@@ -18,7 +18,7 @@ class AuthController{
         const { body:userModel } = req;
         try{
             const insertedId = await this.AuthService.signin(userModel);
-            res.status(insertedId? 201 : 200).json({ insertedId });
+            res.status(insertedId? 201 : 409).json({ insertedId });
         }catch(err){
             next(err);
         }
@@ -48,7 +48,7 @@ class AuthController{
         const { code } = req.body;
         try{
             const deletedCount = await this.authService.logout(code);
-            res.status(deletedCount? 204 : 501).json({ deletedCount });
+            res.status(204).json({ deletedCount });
         }catch(err){
             next(err);
         }

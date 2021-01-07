@@ -53,6 +53,16 @@ class MongoLib{
             .then( result => result.insertedId );
     }
 
+    delete(collection, query){
+        return this.connect()
+            .then( db => {  
+                return db
+                    .collection(collection)
+                    .deleteOne(query);
+            })
+            .then( result => result.deletedCount );
+    }
+
     getTotalDocumetns(collection, query){
         return this.connect()
             .then( db => {

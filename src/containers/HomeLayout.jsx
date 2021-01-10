@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 const HomeLayout = () => {
     return (
         <>
-            <Header label={'Home'} />
+            <Header label={'Welcome: User'} />
             <Home />
             <Footer />
         </>

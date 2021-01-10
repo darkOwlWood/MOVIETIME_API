@@ -4,7 +4,8 @@
 
     box-sizing: border-box;
 
-    background-color: crimson;
+    background-color: #457B9D;
+    color: #1D3557;
 
     display: flex;
     flex-direction: column;
@@ -15,4 +16,7 @@
 .home__trends,.home__user-list{
     width: 90%;
     margin-top: 50px;
+
+    font-weight: bolder;
+    font-size: 1.2em;
 }

@@ -17,19 +17,19 @@ const Home = () => {
         <div className="home">
             <SearchBox />
             <div className="home__user-list">
-                <span className="home__user-list__label">Lista del usuario:</span>
+                <span className="home__label">Lista del usuario:</span>
                 <Carousel isUserList={true} movieList={userMovieList}/>
             </div>
             <div className="home__trends">
-                <span className="home__user-list__label">Animacion:</span>
+                <span className="home__label">Animacion:</span>
                 <Carousel movieList={moviesSectionA}/>
             </div>
             <div className="home__trends">
-                <span className="home__user-list__label">Comedia:</span>
+                <span className="home__label">Comedia:</span>
                 <Carousel movieList={moviesSectionB}/>
             </div>
             <div className="home__trends">
-                <span className="home__user-list__label">Fantasia:</span>
+                <span className="home__label">Fantasia:</span>
                 <Carousel movieList={moviesSectionC}/>
             </div>
         </div>

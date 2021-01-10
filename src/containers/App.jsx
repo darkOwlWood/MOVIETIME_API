@@ -1,11 +1,11 @@
 import React from 'react';
 import '../assets/styles/containers/App.scss';
-import Home from '../components/Home';
+import HomeLayout from './HomeLayout';
 
 const App = () => {
     return (
         <div className="app">
-            <Home />
+            <HomeLayout />
         </div>
     );
 }

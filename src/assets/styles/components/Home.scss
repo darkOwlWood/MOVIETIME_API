@@ -1,6 +1,6 @@
 .home{
     width: 100%;
-    // height: 100vh; //DEV
+    padding: 20px 0 20px;
 
     box-sizing: border-box;
 
@@ -12,6 +12,7 @@
     align-items: center;
 }
 
-.home > *{
+.home__trends,.home__user-list{
+    width: 90%;
     margin-top: 50px;
 }

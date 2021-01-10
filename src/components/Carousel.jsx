@@ -2,12 +2,20 @@ import React from 'react';
 import '../assets/styles/components/Carousel.scss';
 import CarouselItem from '../components/CarouselItem';
 
-const Carousel = () => {
+const Carousel = ({isUserList,movieList}) => {
+
     return (
         <div className="carousel">
             <div className="carousel-item-wrapper">
                 {
-                    Array(10).fill(0).map( (val,ndx) => <CarouselItem key={ndx} />)
+                    movieList &&
+                    movieList.map( (movie,ndx) => 
+                        <CarouselItem 
+                            key={ndx}
+                            movie={movie}
+                            isUserList={isUserList} 
+                        />
+                    )
                 }
             </div>
         </div>

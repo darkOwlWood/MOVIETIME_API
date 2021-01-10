@@ -6,6 +6,7 @@
     border-radius: 10px;
     transition: .5s;
     overflow: hidden;
+    background-size: cover;
 
     display: flex;
     flex-direction: column;
@@ -54,6 +55,10 @@
     cursor: pointer;
 
     border-radius: 100px;
+}
+
+.carousel-item__info__movie-title{
+    text-align: center;
 }
 
 .carousel-item:hover .carousel-item__info{

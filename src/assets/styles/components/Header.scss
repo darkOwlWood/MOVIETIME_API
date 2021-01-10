@@ -23,6 +23,11 @@
     position: relative;
 }
 
+.header a{
+    width: 100%;
+    text-align: center;
+}
+
 .header__item:nth-child(2){
     width: 500px;
 }

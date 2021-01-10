@@ -6,9 +6,9 @@ const Carousel = ({isUserList,movieList}) => {
 
     return (
         <div className="carousel">
-            <div className="carousel-item-wrapper">
+            <div className="carousel__item-wrapper">
                 {
-                    movieList &&
+                    (movieList && movieList.length)?
                     movieList.map( (movie,ndx) => 
                         <CarouselItem 
                             key={ndx}
@@ -16,6 +16,7 @@ const Carousel = ({isUserList,movieList}) => {
                             isUserList={isUserList} 
                         />
                     )
+                    :<div className="carousel__info">Aun no has agregado tus peliculas favoritas</div>
                 }
             </div>
         </div>

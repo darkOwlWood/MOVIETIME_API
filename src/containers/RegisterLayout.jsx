@@ -1,17 +1,17 @@
 import React from 'react';
 
-import Home from '../components/Home';
+import Register from '../components/Register';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const HomeLayout = () => {
+const RegisterLayout = () => {
     return (
         <>
-            <Header label={'Welcome: User'} isHome={true} />
-            <Home />
+            <Header label={'Register'} />
+            <Register />
             <Footer />
         </>
     );
 }
 
-export default HomeLayout;
+export default RegisterLayout;

@@ -51,7 +51,7 @@ class MoviesService{
         const prepareQuery = {};
 
         page = (page && page>1)? page : 1;
-        tags && (prepareQuery.tags = { '$all': tags.replace('[','').replace(']','').split(',') });
+        (typeof tags==='string') && (prepareQuery.tags = { '$all': tags.replace('[','').replace(']','').split(',') });
 
         return { page, prepareQuery };
     }
@@ -65,7 +65,7 @@ class MoviesService{
         let { tags } = query;
         let fullUrl = `${baseUrl}?`;
 
-        tags && (fullUrl += `tags=${tags}&`);
+        (typeof tags==='string') && (fullUrl += `tags=${tags}&`);
 
         return fullUrl;
     }

@@ -11,7 +11,7 @@ require('../auth/strategies/basic');
 const authRoute = (app) => {
     app.use('/auth',router);
 
-    router.post('/sigin',validationHandler(UserCreateModel),authController.signin);
+    router.post('/signin',validationHandler(UserCreateModel),authController.signin);
     router.post('/login',validationHandler(UserVerifyCode),passport.authenticate('basic',{ session: false }),authController.login);
     router.post('/token',validationHandler(UserIdAndVerify),authController.generateJWT);
     router.delete('/logout',validationHandler(UserIdAndVerify),authController.logout);

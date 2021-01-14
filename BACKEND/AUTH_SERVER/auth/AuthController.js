@@ -17,7 +17,7 @@ class AuthController{
     async signin(req, res, next){
         const { body:userModel } = req;
         try{
-            const insertedId = await this.AuthService.signin(userModel);
+            const insertedId = await this.authService.signin(userModel);
             res.status(insertedId? 201 : 409).json({ insertedId });
         }catch(err){
             next(err);

@@ -3,7 +3,7 @@ require('dotenv').config();
 const config = {
     port:          process.env.PORT,
     develop_mode:  process.env.ENV==='DEVELOPMENT',
-    protocol:      process.env.PROTOCOL,
+    protocol:      process.env.ENV==='DEVELOPMENT'? 'http' : 'https',
     api_server:    process.env.API_SERVER,
     auth_server:   process.env.AUTH_SERVER,
     cookie_secret: process.env.COOKIE_SECRET,

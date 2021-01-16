@@ -46,11 +46,11 @@ class AuthServerController{
             const verify = crypto.randomBytes(20).toString("hex");
             
             const resp = await axios.post(`${this.URL}/${endpoint}`, { verify }, { headers:{ Authorization:basic } });
-            const { code } = resp.data;
+            const { name, code } = resp.data;
 
             res
                 .cookie(this.cookieName, { code }, this.cookieOptions)
-                .status(201).json({ message: 'sucess' });
+                .status(201).json({ message: 'sucess', name });
         }catch(err){
             next(err);
         }

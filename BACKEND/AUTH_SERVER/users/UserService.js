@@ -1,5 +1,6 @@
 const MongoLib = require('../lib/mongodb');
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 class UserService{
 
@@ -25,6 +26,13 @@ class UserService{
     async getUserByEmail(email){
         const [ data ] = await this.client.selectById(this.collection,{ email });
         return data;
+    }
+
+    async getUserInfo(userId){
+        const [ data ] = await this.client.selectById(this.collection,{ _id:ObjectId(userId) });
+        const { name, middle_name, last_name } = data;
+        delete data.password;
+        return { name, middle_name, last_name };
     }
 
     async checkUserPassword(email,password){

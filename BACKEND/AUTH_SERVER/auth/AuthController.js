@@ -27,8 +27,8 @@ class AuthController{
     async login(req, res, next){
         const { user: { _id:userId }, body: { verify } } = req;
         try{
-            const code = await this.authService.login(userId,verify);
-            res.json({ code });
+            const { userInfo:{ name }, code } = await this.authService.login(userId,verify);
+            res.status(code? 200 : 400).json({ name, code });
         }catch(err){
             next(err);
         }

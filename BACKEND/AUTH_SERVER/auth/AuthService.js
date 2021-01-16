@@ -24,15 +24,18 @@ class AuthService{
     }
 
     async login(userId,verify){ //<<---
+        const respData = {};
         const challange = await bcrypt.hash(verify,10);
     
         (await this.userIsLogin(userId)) && (await this.deleteChallange(userId));
         
         const [createDate, updateDate] = [new Date(), new Date()];
         const insertedId = await this.client.insert(this.collection,{ userId, challange, updateDate, createDate });
-        const code =  insertedId? `${userId}:${verify}` : 0;
+        respData.code =  insertedId? `${userId}:${verify}` : 0;
+
+        respData.code && (respData.userInfo = await this.userService.getUserInfo(userId));
         
-        return code;
+        return respData;
     }
 
     async logout(code){ //<<---

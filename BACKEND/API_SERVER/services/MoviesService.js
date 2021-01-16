@@ -4,7 +4,7 @@ const { config } = require('../config');
 class MoviesService{
     constructor(){
         this.collection = 'movies';
-        this.pageSize = parseInt(config.page_size);
+        this.pageSize = parseInt(config.pageSize);
         this.client = new MongoLib();
     }
 

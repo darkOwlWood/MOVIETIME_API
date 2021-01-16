@@ -1,7 +1,7 @@
 const boom = require('@hapi/boom');
 const { config } = require('../../config');
 
-const withErrorStack = (error, stack) => config.develop_mode? { error, stack } : error;
+const withErrorStack = (error, stack) => config.developMode? { error, stack } : error;
 
 const logErrors = (error, req, res, next) => {
     console.error(error);

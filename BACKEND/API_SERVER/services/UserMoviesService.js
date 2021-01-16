@@ -7,7 +7,7 @@ class UserMoviesService{
 
     constructor(){
         this.collection = 'user.movies';
-        this.pageSize = parseInt(config.page_size);
+        this.pageSize = parseInt(config.pageSize);
         this.client = new MongoLib();
         this.moviesService = new MoviesService();
     }

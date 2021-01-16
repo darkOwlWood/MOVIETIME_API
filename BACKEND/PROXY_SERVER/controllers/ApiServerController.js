@@ -20,9 +20,10 @@ class ApiServerController{
     async getMoviesById(req, res, next){
         try{
             const { id } = req.params;
+            const { jwt={} } = req.signedCookies[this.cookieName];
             const endpoint = 'movies';
             
-            const resp = await axios.get(`${this.URL}/${endpoint}/${id}`);
+            const resp = await axios.get(`${this.URL}/${endpoint}/${id}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
             const movieData = resp.data;
 
             res.send(movieData);
@@ -34,10 +35,11 @@ class ApiServerController{
     async getMovies(req, res, next){
         try{
             const { protocol, query:{ page=1 } } = req;
+            const { jwt={} } = req.signedCookies[this.cookieName];
             const endpoint = 'movies';
             const baseUrl = `${protocol}://${req.get('host')}/${this.route}/${endpoint}`;
 
-            const resp = await axios.get(`${this.URL}/${endpoint}?page=${page}`);
+            const resp = await axios.get(`${this.URL}/${endpoint}?page=${page}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
             let movieData = resp.data;
 
             movieData = this.refactorPages(movieData,baseUrl,page);
@@ -52,12 +54,12 @@ class ApiServerController{
     async getUserMovies(req, res, next){
         try{
             const { protocol, query:{ page=1 } } = req;
-            const { code, jwt } = req.signedCookies[this.cookieName];
+            const { code='', jwt={} } = req.signedCookies[this.cookieName];
             const userId = code.split(':')[0];
             const endpoint = 'userMovies';
             const baseUrl = `${protocol}://${req.get('host')}/${this.route}/${endpoint}`;
 
-            const resp = await axios.get(`${this.URL}/${endpoint}/${userId}?page=${page}`,{ headers:{ Bearer: jwt } });
+            const resp = await axios.get(`${this.URL}/${endpoint}/${userId}?page=${page}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
             let userMoviePage = resp.data;
 
            userMoviePage = this.refactorPages(userMoviePage,baseUrl,page);
@@ -71,11 +73,11 @@ class ApiServerController{
     async insertUnserMovie(req, res, next){
         try{
             const { body: { movieId } } = req;
-            const { code, jwt } = req.signedCookies[this.cookieName];
+            const { code='', jwt={} } = req.signedCookies[this.cookieName];
             const userId = code.split(':')[0];
             const endpoint = 'userMovies';
 
-            const resp = await axios.post(`${this.URL}/${endpoint}`, { userId, movieId }, { headers:{ Bearer: jwt } });
+            const resp = await axios.post(`${this.URL}/${endpoint}`, { userId, movieId }, { headers:{ Authorization:`Bearer ${jwt}` } });
             const { status, data:{ resultId } } = resp;
 
             res.status(status).json({ resultId });
@@ -87,11 +89,11 @@ class ApiServerController{
     async deleteUserMovie(req, res, next){
         try{
             const { id:movieId } = req.params;
-            const { code, jwt } = req.signedCookies[this.cookieName];
+            const { code='', jwt={} } = req.signedCookies[this.cookieName];
             const userId = code.split(':')[0];
             const endpoint = 'userMovies';
 
-            const resp = await axios.delete(`${this.URL}/${endpoint}/${userId}/${movieId}`, { headers:{ Bearer: jwt } });
+            const resp = await axios.delete(`${this.URL}/${endpoint}/${userId}/${movieId}`, { headers:{ Authorization:`Bearer ${jwt}` } });
             const { status, data:{ deletedCount } } = resp;
 
             res.status(status).json({ deletedCount });

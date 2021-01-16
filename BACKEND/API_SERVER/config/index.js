@@ -1,13 +1,14 @@
 require('dotenv').config();
 
 const config = {
-    port:         process.env.PORT,
-    develop_mode: process.env.ENV==='DEVELOPMENT',
-    db_user:      process.env.DB_USER,
-    db_name:      process.env.DB_NAME,
-    db_password:  process.env.DB_PASSWORD,
-    db_host:      process.env.DB_HOST,
-    page_size:    process.env.PAGE_SIZE,
+    port:            process.env.PORT,
+    developMode:     process.env.ENV==='DEVELOPMENT',
+    pageSize:        process.env.PAGE_SIZE,
+    dbUser:          process.env.DB_USER,
+    dbName:          process.env.DB_NAME,
+    dbPassword:      process.env.DB_PASSWORD,
+    dbHost:          process.env.DB_HOST,
+    secretJwtAccess: process.env.SECRET_JWT_ACCESS,
 };
 
 module.exports = { config };

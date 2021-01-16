@@ -1,6 +1,8 @@
 const MongoLib = require('../lib/mongodb');
 const { ObjectId } = require('mongodb');
 const UserService = require('../users/UserService');
+const ApiKeyService = require('../utils/ApiKeyService');
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { config } = require('../config');
@@ -13,6 +15,7 @@ class AuthService{
         this.secretJwtAccess = config.secretJwtAccess;
         this.expiresIn = '900000ms';
         this.userService = new UserService();
+        this.apiKeyService = new ApiKeyService();
     }
 
     async signin(userModel){//<<---
@@ -28,6 +31,7 @@ class AuthService{
         const [createDate, updateDate] = [new Date(), new Date()];
         const insertedId = await this.client.insert(this.collection,{ userId, challange, updateDate, createDate });
         const code =  insertedId? `${userId}:${verify}` : 0;
+        
         return code;
     }
 
@@ -42,15 +46,16 @@ class AuthService{
         return resp;
     }
     
-    async generateJWT(code){ //<<---
+    async generateJWT(code,apiKey){ //<<---
         const [ userId, verify ] = code.split(':');
         const challange = await this.getUserChallange(userId);
-        let token = {};
+        let token = null;
 
-        if((await this.userIsLogin(userId)) && (await bcrypt.compare(verify,challange))){
+        if((await this.userIsLogin(userId)) && (await bcrypt.compare(verify,challange)) && (await this.apiKeyService.ApikeyExist(apiKey))){
             const updateDate = new Date();
+            const scopes = await this.apiKeyService.getApiKeyScopes(apiKey);
             await this.client.update(this.collection,{ challange },{ '$set': { updateDate } });
-            token = jwt.sign({ userId },this.secretJwtAccess,{ expiresIn: this.expiresIn }); 
+            token = jwt.sign({ userId, scopes },this.secretJwtAccess,{ expiresIn: this.expiresIn }); 
         }
 
         return token;

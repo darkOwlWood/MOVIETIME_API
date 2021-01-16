@@ -10,7 +10,7 @@ const { logError, wrapError, responceError } = require('./utils/middlewares/erro
 
 //MIDDLEWARES TO PREPARE THE REQUEST
 app.use(express.json());
-app.use(cookieParser(config.cookie_secret));
+app.use(cookieParser(config.cookieSecret));
 
 //APP ROUTES
 authServer(app);

@@ -2,8 +2,8 @@ const axios = require('axios');
 const crypto = require('crypto');
 const { config } = require('../config');
 
-const httpOnly = Boolean(config.http_only);
-const maxAge   = parseInt(config.max_age); 
+const httpOnly = Boolean(config.httpOnly);
+const maxAge   = parseInt(config.maxAge); 
 const path     = config.path; 
 const secure   = Boolean(config.secure); 
 const signed   = Boolean(config.signed);
@@ -11,8 +11,9 @@ const signed   = Boolean(config.signed);
 class AuthServerController{
     
     constructor(){
+        this.apiKey = config.userApiKey;
         this.cookieName = 'idprot';
-        this.URL = `${config.protocol}://${config.auth_server}`;
+        this.URL = `${config.protocol}://${config.authServer}`;
         this.cookieOptions = { httpOnly, maxAge, path, secure, signed };
         this.init();
     }
@@ -60,7 +61,7 @@ class AuthServerController{
             const { code } = req.signedCookies[this.cookieName];
             const endpoint = 'auth/token';
 
-            const resp = await axios.post(`${this.URL}/${endpoint}`,{ code });
+            const resp = await axios.post(`${this.URL}/${endpoint}`,{ code, apiKey:this.apiKey });
             const { jwt } = resp.data;
 
             res

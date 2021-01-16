@@ -10,7 +10,7 @@ const wrapError = (err, req, res, next) => next(err.isBoom? err : boom.badImplem
 
 const responceError = (err, req, res, next) => {
     const { stack, output:{ statusCode, payload } } = err;
-    res.status(statusCode).send({ payload, stack: config.develop_mode? stack : '' });
+    res.status(statusCode).send({ payload, stack: config.developMode? stack : '' });
 }
 
 module.exports = { 

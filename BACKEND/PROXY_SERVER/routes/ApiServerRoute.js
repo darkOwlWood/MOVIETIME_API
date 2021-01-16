@@ -12,7 +12,6 @@ const apiServerRoute = (app) => {
     router.get('/userMovies',apiServerController.getUserMovies);
     router.post('/userMovies',apiServerController.insertUnserMovie);
     router.delete('/userMovies/:id',apiServerController.deleteUserMovie);
-
 }
 
 module.exports = { apiServerRoute };

@@ -35,10 +35,10 @@ class AuthController{
     }
 
     async generateJWT(req, res, next){
-        const { code } = req.body;
+        const { code, apiKey } = req.body;
         try{
-            const jwt = await  this.authService.generateJWT(code);
-            res.json({ jwt });
+            const jwt = await  this.authService.generateJWT(code, apiKey);
+            res.status(jwt? 201: 400).json({ jwt });
         }catch(err){
             next(err);
         }

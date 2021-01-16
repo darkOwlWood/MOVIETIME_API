@@ -16,6 +16,11 @@ const UserVerifyCode = Joi.object({
     verify: JoiVerify.required(),
 });
 
+const UserIdVerifyAndKey = Joi.object({
+    code:   JoiIdAndVerify.required(),
+    apiKey: JoiVerify.required(),
+});
+
 const UserCreateModel = Joi.object({
     name:        JoiName.required(),
     middle_name: JoiMiddleName.required(),
@@ -27,5 +32,6 @@ const UserCreateModel = Joi.object({
 module.exports = {
     UserIdAndVerify,
     UserVerifyCode,
+    UserIdVerifyAndKey,
     UserCreateModel,
 };

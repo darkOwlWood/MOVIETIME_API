@@ -5,7 +5,7 @@ class ApiServerController{
     constructor(){
         this.cookieName = 'idprot';
         this.route = 'apiserver';
-        this.URL = `${config.protocol}://${config.api_server}`;
+        this.URL = `${config.protocol}://${config.apiServer}`;
         this.init();
     }
 

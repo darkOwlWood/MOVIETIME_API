@@ -4,7 +4,7 @@ const AuthController = require('./AuthController');
 const authController = new AuthController();
 const passport = require('passport');
 const { validationHandler } = require('../utils/middlewares/validationHandler');
-const { UserIdAndVerify, UserVerifyCode, UserCreateModel } = require('../users/UserModel');
+const { UserIdAndVerify, UserVerifyCode, UserIdVerifyAndKey, UserCreateModel } = require('../users/UserModel');
 
 require('../auth/strategies/basic');
 
@@ -13,7 +13,7 @@ const authRoute = (app) => {
 
     router.post('/signin',validationHandler(UserCreateModel),authController.signin);
     router.post('/login',validationHandler(UserVerifyCode),passport.authenticate('basic',{ session: false }),authController.login);
-    router.post('/token',validationHandler(UserIdAndVerify),authController.generateJWT);
+    router.post('/token',validationHandler(UserIdVerifyAndKey),authController.generateJWT);
     router.delete('/logout',validationHandler(UserIdAndVerify),authController.logout);
 }
 

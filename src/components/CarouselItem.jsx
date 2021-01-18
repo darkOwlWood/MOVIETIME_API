@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import '../assets/styles/components/CarouselItem.scss';
 
 import { useDispatch } from 'react-redux';
-import { addUserMovie, deleteUserMovie } from '../slices/moviesSlice';
+import { addUserMovie, deleteUserMovie, } from '../slices/moviesSlice';
 import play from '../assets/static/play.png';
 import plus from '../assets/static/plus.png';
 import minus from '../assets/static/minus.png';
@@ -22,7 +22,7 @@ const CarouselItem = ({ movie, isUserList }) => {
                         isUserList? 
                             <img 
                                 src={minus} 
-                                alt="remove icon" onClick={ () => dispatch(deleteUserMovie({ id: movie.id }))}
+                                alt="remove icon" onClick={ () => dispatch(deleteUserMovie(movie.id))}
                             /> 
                             :<img 
                                 src={plus} 

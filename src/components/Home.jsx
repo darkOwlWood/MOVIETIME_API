@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import '../assets/styles/components/Home.scss';
 
-import { useSelector } from 'react-redux';
-import { getUserMovieList, getMoviesSectionA, getMoviesSectionB, getMoviesSectionC } from '../slices/moviesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserMovieList, getMoviesSection, setMoviesSection, getRequestError, getUserMovies } from '../slices/moviesSlice';
 import Carousel from './Carousel';
 import SearchBox from '../components/SearchBox';
 
 const Home = () => {
 
+    const dispatch = useDispatch();
+    const requestError = useSelector(getRequestError);
     const userMovieList  = useSelector(getUserMovieList);
-    const moviesSectionA = useSelector(getMoviesSectionA);
-    const moviesSectionB = useSelector(getMoviesSectionB);
-    const moviesSectionC = useSelector(getMoviesSectionC);
+    const moviesSectionA = useSelector(getMoviesSection('moviesSectionA'));
+    const moviesSectionB = useSelector(getMoviesSection('moviesSectionB'));
+    const moviesSectionC = useSelector(getMoviesSection('moviesSectionC'));
+    
+    useLayoutEffect( () => {
+        if(!userMovieList.length && !moviesSectionA.length && !moviesSectionB.length && !moviesSectionC.length && !requestError){
+            dispatch(setMoviesSection([ ['Animation'], ['Comedy'], ['Fantasy'] ] ));
+            dispatch(getUserMovies());
+        }
+    });
 
     return (
         <div className="home">

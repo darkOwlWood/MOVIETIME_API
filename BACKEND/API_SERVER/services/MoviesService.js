@@ -93,7 +93,7 @@ class MoviesService{
             const { prev, next } = this.getPrevAndNextUrls(page,count,fullUrl);
             pageResults = {
                 "info":{ count, pages, next, prev },
-                "reults": movieArray,
+                "results": movieArray,
             }
         }else{
             pageResults = { 'error': 'There is nothing here' };

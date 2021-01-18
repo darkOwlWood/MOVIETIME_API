@@ -34,12 +34,12 @@ class ApiServerController{
 
     async getMovies(req, res, next){
         try{
-            const { protocol, query:{ page=1 } } = req;
+            const { protocol, query:{ page=1, tags='' } } = req;
             const { jwt={} } = req.signedCookies[this.cookieName];
             const endpoint = 'movies';
             const baseUrl = `${protocol}://${req.get('host')}/${this.route}/${endpoint}`;
 
-            const resp = await axios.get(`${this.URL}/${endpoint}?page=${page}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
+            const resp = await axios.get(`${this.URL}/${endpoint}?page=${page}${tags? `&tags=${tags}`:''}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
             let movieData = resp.data;
 
             movieData = this.refactorPages(movieData,baseUrl,page);

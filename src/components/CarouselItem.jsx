@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import '../assets/styles/components/CarouselItem.scss';
 
 import { useDispatch } from 'react-redux';
@@ -17,17 +17,17 @@ const CarouselItem = ({ movie, isUserList }) => {
         <div className="carousel-item" style={styles}>
             <div className="carousel-item__info">
                 <div className="carousel-item__info__icons">
-                    <img src={play} alt="play icon"/>
+                    <img src={play} alt="play icon" />
                     {
-                        isUserList? 
-                            <img 
-                                src={minus} 
-                                alt="remove icon" onClick={ () => dispatch(deleteUserMovie(movie.id))}
-                            /> 
-                            :<img 
-                                src={plus} 
-                                alt="add icon" 
-                                onClick={ () => dispatch(addUserMovie(movie)) } 
+                        isUserList ?
+                            <img
+                                src={minus}
+                                alt="remove icon" onClick={() => dispatch(deleteUserMovie(movie.id))}
+                            />
+                            : <img
+                                src={plus}
+                                alt="add icon"
+                                onClick={() => dispatch(addUserMovie(movie))}
                             />
                     }
                 </div>

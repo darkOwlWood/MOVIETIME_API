@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { initialState, loadState, saveSate } from './movieInitalState';
 import axios from 'axios';
 
 const SERVER_URL = 'http://localhost:8088';
@@ -143,22 +144,7 @@ export const deleteUserMovie = createAsyncThunk('movies/deleteUserMovie', async 
 
 export const moviesSlice = createSlice({
     name: 'movies',
-    initialState: {
-        request: {
-            error: false,
-            code: 0,
-            message: '',
-        },
-        userInfo: {
-            name: '',
-            isLog: false,
-            isPlay: false,
-            movieList: [],
-        },
-        moviesSectionA: [],
-        moviesSectionB: [],
-        moviesSectionC: [],
-    },
+    initialState: loadState(),
     reducers: {
     },
     extraReducers: builder => {
@@ -169,26 +155,31 @@ export const moviesSlice = createSlice({
                 state.moviesSectionA = resultA.results;
                 state.moviesSectionB = resultB.results;
                 state.moviesSectionC = resultC.results;
+                saveSate(state);
             })
             .addCase(setUserMovies.fulfilled, (state, action) => {
                 const { results } = action.payload;
                 state.userInfo.movieList = results;
+                saveSate(state);
             })
             .addCase(addUserMovie.fulfilled, (state, action) => {
                 action.payload.resultId && state.userInfo.movieList.push(action.payload.movieData);
+                saveSate(state);
             })
             .addCase(deleteUserMovie.fulfilled, (state, action) => {
                 const { movieId } = action.payload;
                 state.userInfo.movieList = state.userInfo.movieList.filter(movie => movie.id !== movieId);
+                saveSate(state);
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 const { name } = action.payload;
                 state.userInfo.name = name;
                 state.userInfo.isLog = true;
+                saveSate(state);
             })
             .addCase(logoutUser.fulfilled, (state, action) => {
-                state.userInfo.name = '';
-                state.userInfo.isLog = false;
+                state = initialState;
+                saveSate(state);
             })
             //REJECT
             .addMatcher(
@@ -197,6 +188,7 @@ export const moviesSlice = createSlice({
                     state.request.error = true;
                     state.request.code = action.payload.status;
                     state.request.message = action.payload.statusText;
+                    saveSate(state);
                 }
             )
     }

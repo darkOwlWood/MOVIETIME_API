@@ -8,7 +8,7 @@ import RegisterLayout from './RegisterLayout';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getIsLog } from '../slices/moviesSlice';
+import { getIsLog } from '../moviesRedux/moviesSlice';
 
 const App = () => {
 

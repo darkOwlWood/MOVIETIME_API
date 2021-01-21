@@ -1,12 +1,15 @@
 import React from 'react';
 import '../assets/styles/components/Header.scss';
 
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser, getIsLog } from '../slices/moviesSlice';
+
+import { getIsLog } from '../moviesRedux/moviesSlice';
+import { logoutUser } from '../moviesRedux/moviesThunk';
+
 import logo from '../assets/static/logo.png'
 import user from '../assets/static/usuario.png'
 
-import { Link } from 'react-router-dom';
 
 const Header = ({label}) => {
 

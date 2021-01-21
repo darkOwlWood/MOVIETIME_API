@@ -2,7 +2,8 @@ import React from 'react';
 import '../assets/styles/components/CarouselItem.scss';
 
 import { useDispatch } from 'react-redux';
-import { addUserMovie, deleteUserMovie, } from '../slices/moviesSlice';
+import { addUserMovie, deleteUserMovie, } from '../moviesRedux/moviesThunk';
+
 import play from '../assets/static/play.png';
 import plus from '../assets/static/plus.png';
 import minus from '../assets/static/minus.png';

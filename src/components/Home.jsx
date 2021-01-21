@@ -1,10 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 import '../assets/styles/components/Home.scss';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setMoviesSection, setUserMovies, getMoviesSection, getUserMovieList } from '../slices/moviesSlice';
 import Carousel from './Carousel';
 import SearchBox from '../components/SearchBox';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getMoviesSection, getUserMovieList } from '../moviesRedux/moviesSlice';
+import { setMoviesSection, setUserMovies } from '../moviesRedux/moviesThunk';
 
 const Home = () => {
 

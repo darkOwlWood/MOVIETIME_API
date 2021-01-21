@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { initialState, loadState, saveSate } from './movieInitalState';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { initialState, saveSate } from './movieInitalState';
+
 import axios from 'axios';
 
 const SERVER_URL = 'http://localhost:8088';
@@ -142,66 +143,48 @@ export const deleteUserMovie = createAsyncThunk('movies/deleteUserMovie', async 
     }
 });
 
-export const moviesSlice = createSlice({
-    name: 'movies',
-    initialState: loadState(),
-    reducers: {
-    },
-    extraReducers: builder => {
-        builder
-            //FULLFILLED
-            .addCase(setMoviesSection.fulfilled, (state, action) => {
-                const { resultA, resultB, resultC } = action.payload;
-                state.moviesSectionA = resultA.results;
-                state.moviesSectionB = resultB.results;
-                state.moviesSectionC = resultC.results;
+export const extraReducers = builder => {
+    builder
+        //FULLFILLED
+        .addCase(setMoviesSection.fulfilled, (state, action) => {
+            const { resultA, resultB, resultC } = action.payload;
+            state.moviesSectionA = resultA.results;
+            state.moviesSectionB = resultB.results;
+            state.moviesSectionC = resultC.results;
+            saveSate(state);
+        })
+        .addCase(setUserMovies.fulfilled, (state, action) => {
+            const { results } = action.payload;
+            state.userInfo.movieList = results;
+            saveSate(state);
+        })
+        .addCase(addUserMovie.fulfilled, (state, action) => {
+            action.payload.resultId && state.userInfo.movieList.push(action.payload.movieData);
+            saveSate(state);
+        })
+        .addCase(deleteUserMovie.fulfilled, (state, action) => {
+            const { movieId } = action.payload;
+            state.userInfo.movieList = state.userInfo.movieList.filter(movie => movie.id !== movieId);
+            saveSate(state);
+        })
+        .addCase(loginUser.fulfilled, (state, action) => {
+            const { name } = action.payload;
+            state.userInfo.name = name;
+            state.userInfo.isLog = true;
+            saveSate(state);
+        })
+        .addCase(logoutUser.fulfilled, (state, action) => {
+            Object.assign(state, initialState);
+            saveSate(initialState);
+        })
+        //REJECT
+        .addMatcher(
+            (action) => action.type.endsWith('/rejected'),
+            (state, action) => {
+                state.request.error = true;
+                state.request.code = action.payload.status;
+                state.request.message = action.payload.statusText;
                 saveSate(state);
-            })
-            .addCase(setUserMovies.fulfilled, (state, action) => {
-                const { results } = action.payload;
-                state.userInfo.movieList = results;
-                saveSate(state);
-            })
-            .addCase(addUserMovie.fulfilled, (state, action) => {
-                action.payload.resultId && state.userInfo.movieList.push(action.payload.movieData);
-                saveSate(state);
-            })
-            .addCase(deleteUserMovie.fulfilled, (state, action) => {
-                const { movieId } = action.payload;
-                state.userInfo.movieList = state.userInfo.movieList.filter(movie => movie.id !== movieId);
-                saveSate(state);
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                const { name } = action.payload;
-                state.userInfo.name = name;
-                state.userInfo.isLog = true;
-                saveSate(state);
-            })
-            .addCase(logoutUser.fulfilled, (state, action) => {
-                state = initialState;
-                saveSate(state);
-            })
-            //REJECT
-            .addMatcher(
-                (action) => action.type.endsWith('/rejected'),
-                (state, action) => {
-                    state.request.error = true;
-                    state.request.code = action.payload.status;
-                    state.request.message = action.payload.statusText;
-                    saveSate(state);
-                }
-            )
-    }
-});
-
-export const getErrorCode = state => state.movies.request.code;
-
-export const getName = state => state.movies.userInfo.name;
-
-export const getIsLog = state => state.movies.userInfo.isLog;
-
-export const getUserMovieList = state => state.movies.userInfo.movieList;
-
-export const getMoviesSection = moviesSection => state => state.movies[moviesSection];
-
-export default moviesSlice.reducer;
+            }
+        )
+};

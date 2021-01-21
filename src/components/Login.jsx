@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import '../assets/styles/components/FormCard.scss';
 
-import { loginUser, getIsLog } from '../slices/moviesSlice';
+import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getIsLog } from '../moviesRedux/moviesSlice';
+import { loginUser } from '../moviesRedux/moviesThunk';
 
 const Login = () => {
 

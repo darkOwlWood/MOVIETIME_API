@@ -26,7 +26,6 @@ app.use(notFoundHandler);
 
 //ERROR HANDLERS
 app.use(logError);
-app.use(wrapError);
 app.use(responceError);
 
 app.listen(config.port, () => console.log(`http://localhost:${config.port}`));

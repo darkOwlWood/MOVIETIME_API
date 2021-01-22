@@ -6,12 +6,12 @@ const apiServerController =  new ApiServerController();
 const apiServerRoute = (app) => {
     app.use('/apiserver',router);
 
-    router.get('/movies/:id',apiServerController.getMoviesById);
+    router.get('/movies/:movieId',apiServerController.getMoviesById);
     router.get('/movies',apiServerController.getMovies);
 
     router.get('/userMovies',apiServerController.getUserMovies);
     router.post('/userMovies',apiServerController.insertUnserMovie);
-    router.delete('/userMovies/:id',apiServerController.deleteUserMovie);
+    router.delete('/userMovies/:movieId',apiServerController.deleteUserMovie);
 }
 
 module.exports = { apiServerRoute };

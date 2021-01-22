@@ -19,11 +19,11 @@ class ApiServerController{
 
     async getMoviesById(req, res, next){
         try{
-            const { id } = req.params;
+            const { movieId } = req.params;
             const { jwt={} } = req.signedCookies[this.cookieName];
             const endpoint = 'movies';
             
-            const resp = await axios.get(`${this.URL}/${endpoint}/${id}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
+            const resp = await axios.get(`${this.URL}/${endpoint}/${movieId}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
             const movieData = resp.data;
 
             res.send(movieData);
@@ -88,7 +88,7 @@ class ApiServerController{
 
     async deleteUserMovie(req, res, next){
         try{
-            const { id:movieId } = req.params;
+            const { movieId } = req.params;
             const { code='', jwt={} } = req.signedCookies[this.cookieName];
             const userId = code.split(':')[0];
             const endpoint = 'userMovies';

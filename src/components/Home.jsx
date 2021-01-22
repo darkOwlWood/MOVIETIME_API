@@ -7,6 +7,7 @@ import SearchBox from '../components/SearchBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMoviesSection, getUserMovieList } from '../moviesRedux/moviesSlice';
 import { setMoviesSection, setUserMovies } from '../moviesRedux/moviesThunk';
+import { config } from '../config';
 
 const Home = () => {
 
@@ -18,7 +19,7 @@ const Home = () => {
 
     useLayoutEffect(() => {
         (async () => {
-            await dispatch(setMoviesSection(['Animation', 'Comedy', 'Adventure']));
+            await dispatch(setMoviesSection(config.movieFilter));
             await dispatch(setUserMovies());
         })();
     }, []);

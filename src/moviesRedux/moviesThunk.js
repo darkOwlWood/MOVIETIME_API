@@ -2,8 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { initialState, saveSate } from './movieInitalState';
 
 import axios from 'axios';
+import { config } from '../config';
 
-const SERVER_URL = 'http://localhost:8088';
+const SERVER_URL = config.proxyUrl;
 
 export const axiosRequest = async ({ method, endpoint, data, headers, tokenCallBack }, retry) => {
     const axiosConfig = {

@@ -40,7 +40,7 @@ export const loginUser = createAsyncThunk('movies/loginUser', async (dataUser, t
     };
     delete dataUser.password;
 
-    const resp = await axiosRequest(requestConfig, true);
+    const resp = await axiosRequest(requestConfig, false);
 
     if (resp.isError) {
         return thunkAPI.rejectWithValue(resp);

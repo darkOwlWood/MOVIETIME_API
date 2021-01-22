@@ -52,8 +52,27 @@
     color: #F1FAEE;
 }
 
+.form-card__item--error{
+    height: 20%;
+
+    font-size: .9em;
+    color: #7f0000;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-card__item--error,.form-card__item--redirect p{
+    margin: 0;
+    padding: 0;
+    
+    text-align: center;
+    font-weight: bolder;
+}
+
 .form-card__item--send{
-    height: 30%;
+    height: 25%;
 }
 
 .form-card__item--send button{

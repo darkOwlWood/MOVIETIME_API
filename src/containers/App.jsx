@@ -5,6 +5,7 @@ import RootLayout from './RootLayout';
 import HomeLayout from './HomeLayout';
 import LoginLayout from './LoginLayout';
 import RegisterLayout from './RegisterLayout';
+import NotFound from '../components/NotFound';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -22,7 +23,7 @@ const App = () => {
                     <Route exact path="/home" component={userIsLog ? HomeLayout : RootLayout} />
                     <Route exact path="/login" component={userIsLog ? HomeLayout : LoginLayout} />
                     <Route exact path="/register" component={userIsLog ? HomeLayout : RegisterLayout} />
-                    <Route component={() => <div>404</div>} />
+                    <Route component={NotFound} />
                 </Switch>
             </BrowserRouter>
         </>

@@ -4,12 +4,12 @@ import '../assets/styles/components/SearchBox.scss';
 const SearchBox = () => {
     return (
         <div className="search-box">
-            <label htmlFor="search" className="search-box__label">Buscar Tus Videos:</label>
+            <label htmlFor="search" className="search-box__label">Search your videos:</label>
             <input 
                 type="text" 
                 name="search" 
                 id="search-box__input"
-                placeholder="Nombre del Video..."
+                placeholder="Video name..."
             />
         </div>
     );

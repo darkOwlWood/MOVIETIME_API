@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 const RegisterLayout = () => {
     return (
         <>
-            <Header label={'Register'} />
+            <Header label={'Signin'} />
             <Register />
             <Footer />
         </>

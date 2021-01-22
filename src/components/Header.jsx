@@ -19,7 +19,7 @@ const Header = ({label}) => {
     return (
         <div className="header">
             <div className="header__item">
-                <Link to="/"><img src={logo} alt="logo de pagina"/></Link>
+                <Link to="/"><img src={logo} alt="page logo"/></Link>
             </div>
             <div className="header__item">
                 <p className="header__title">
@@ -27,7 +27,7 @@ const Header = ({label}) => {
                 </p>
             </div>
             <div className="header__item">
-                <img src={user} alt="imagen de usuario"/>
+                <img src={user} alt="user picture"/>
                 <div className="header__options">
                     {
                         userIsLog?

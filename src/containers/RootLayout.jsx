@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 const RootLayout = () => {
     return (
         <>
-            <Header label={'Bienvenido'} />
+            <Header label={'Welcome'} />
             <Root />
             <Footer />
         </>

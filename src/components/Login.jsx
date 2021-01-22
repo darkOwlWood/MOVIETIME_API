@@ -31,7 +31,7 @@ const Login = () => {
                         <input
                             type="password"
                             name="password"
-                            placeholder="Contraseña..."
+                            placeholder="Password..."
                             onChange={event => setFormData({ ...formData, password: event.target.value })}
                         />
 
@@ -40,15 +40,15 @@ const Login = () => {
                             <div className="form-card__item form-card__item--error">
                                 {
                                     errorCode === 401 ?
-                                    <p>El usuario o contraseña son incorrectos.</p>
-                                    : <p>Ha ocurrido un error en el servidor, favor de intentar mas tarde.</p>
+                                    <p>The user or password aren't correct.</p>
+                                    : <p>There was a error in the server, please, try it later.</p>
                                 }
                             </div>
                             :<></>
                         }
 
                         <div className="form-card__item form-card__item--send">
-                            <button onClick={handleClick} >Entrar</button>
+                            <button onClick={handleClick} >Enter</button>
                         </div>
                     </div>
                 </div>

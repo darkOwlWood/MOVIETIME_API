@@ -13,7 +13,7 @@ const HomeLayout = () => {
 
     return (
         <>
-            <Header label={`Bienvenido: ${userName}`}/>
+            <Header label={`Welcome: ${userName}`}/>
             <Home />
             <Footer />
         </>

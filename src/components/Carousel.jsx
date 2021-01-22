@@ -16,7 +16,7 @@ const Carousel = ({isUserList,movieList}) => {
                             isUserList={isUserList} 
                         />
                     )
-                    :<div className="carousel__info">Aun no has agregado tus peliculas favoritas</div>
+                    :<div className="carousel__info">There is no movie selection here.</div>
                 }
             </div>
         </div>

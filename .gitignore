@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,node
+# Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node,react
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,node,react
 
 ### Linux ###
 *~
@@ -132,6 +132,7 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+modules-manifest.json
 
 # Gatsby files
 .cache/
@@ -156,6 +157,19 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+### react ###
+.DS_*
+**/*.backup.*
+**/*.back.*
+
+node_modules
+
+*.sublime*
+
+psd
+thumb
+sketch
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -183,4 +197,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node
+# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node,react

@@ -1,0 +1,22 @@
+.home{
+    width: 100%;
+    padding: 20px 0;
+
+    box-sizing: border-box;
+
+    background: linear-gradient(0deg, rgba(69,123,157,1) 20%, rgba(40,171,185,1) 80%);
+    color: #1D3557;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.home__trends,.home__user-list{
+    width: 90%;
+    margin-top: 50px;
+
+    font-weight: bolder;
+    font-size: 1.2em;
+}

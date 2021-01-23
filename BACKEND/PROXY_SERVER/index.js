@@ -7,13 +7,22 @@ const { config } = require('./config');
 const { authServer } = require('./routes/AuthServerRoute');
 const { apiServerRoute } = require('./routes/ApiServerRoute');
 const { notFoundHandler } = require('./utils/middlewares/notFoundHandler');
-const { logError, wrapError, responceError } = require('./utils/middlewares/errorHandler');
+const { logError, responceError } = require('./utils/middlewares/errorHandler');
 
 //MIDDLEWARES TO PREPARE THE REQUEST
 app.use(cors({
     origin: `${config.protocol}://${config.frontendPage}`,
     credentials: true,
 }));
+
+app.use(function (req, res, next) {	
+    res.setHeader('Access-Control-Allow-Origin', `${config.protocol}://${config.frontendPage}`);    
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');    
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');   
+    res.setHeader('Access-Control-Allow-Credentials', true);    
+    next();
+});
+
 app.use(express.json());
 app.use(cookieParser(config.cookieSecret));
 

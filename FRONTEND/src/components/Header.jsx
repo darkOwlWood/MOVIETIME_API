@@ -32,12 +32,12 @@ const Header = ({label}) => {
                     {
                         userIsLog?
                         <ul>
-                            <li><Link to="/Home">Peliculas</Link></li>
-                            <li onClick={() => dispatch(logoutUser())}><Link to="/">Cerrar session</Link></li>
+                            <li><Link to="/Home">Movies</Link></li>
+                            <li onClick={() => dispatch(logoutUser())}><Link to="/">Logout</Link></li>
                         </ul>
                         :<ul>
-                            <li><Link to="/login">Ingresar</Link></li>
-                            <li><Link to="/register">Registrarse</Link></li>
+                            <li><Link to="/login">Login</Link></li>
+                            <li><Link to="/register">Signin</Link></li>
                         </ul>
                     }
                 </div>

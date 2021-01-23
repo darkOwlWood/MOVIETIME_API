@@ -3,6 +3,7 @@ import '../assets/styles/components/FormCard.scss';
 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { config } from '../config';
 
 const Register = () => {
 
@@ -56,7 +57,7 @@ const Register = () => {
         try {
             if (validateFormData()) {
                 const { password_repeat, ...userData } = formData;
-                const resp = await axios.post(`http://localhost:8088/authserver/signin`, { ...userData }, { withCredentials: true });
+                const resp = await axios.post(`${config.proxyUrl}/authserver/signin`, { ...userData }, { withCredentials: true });
                 delete formData.password;
                 setIsRegistered(true);
             }

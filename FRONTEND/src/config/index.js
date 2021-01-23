@@ -1,4 +1,4 @@
 export const config = {
-    proxyUrl: 'http://localhost:8088',
+    proxyUrl: 'https://movietime-proxy-server.vercel.app',
     movieFilter: ['Animation', 'Comedy', 'Adventure'],
 };

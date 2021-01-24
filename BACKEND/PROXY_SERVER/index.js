@@ -15,14 +15,6 @@ app.use(cors({
     credentials: true,
 }));
 
-app.use(function (req, res, next) {	
-    res.setHeader('Access-Control-Allow-Origin', `${config.protocol}://${config.frontendPage}`);    
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');    
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');   
-    res.setHeader('Access-Control-Allow-Credentials', true);    
-    next();
-});
-
 app.use(express.json());
 app.use(cookieParser(config.cookieSecret));
 

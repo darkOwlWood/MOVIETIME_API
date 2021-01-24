@@ -16,6 +16,4 @@ const config = {
     userApiKey:    process.env.USER_API_KEY,
 }
 
-console.log(config);
-
 module.exports = { config };

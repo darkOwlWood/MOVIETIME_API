@@ -6,8 +6,8 @@ const PASSWORD = config.dbPassword;
 const HOST     = config.dbHost;
 const DB       = config.dbName;
 
-// const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB}?retryWrites=true&w=majority`;
-const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${HOST}/${DB}`;
+const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB}?retryWrites=true&w=majority`;
+// const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${HOST}/${DB}`;
 
 class MongoLib{
 

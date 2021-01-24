@@ -13,7 +13,7 @@ class AuthService{
         this.collection = 'challange';
         this.client = new MongoLib();
         this.secretJwtAccess = config.secretJwtAccess;
-        this.expiresIn = '900000ms';
+        this.expiresIn = `${config.jwtExpireTimeMs}ms`;
         this.userService = new UserService();
         this.apiKeyService = new ApiKeyService();
     }

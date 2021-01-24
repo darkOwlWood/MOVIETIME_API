@@ -5,7 +5,7 @@ const createJWT = (req, res, next) => {
     const { _id, email } = req.user;
     const payload = { _id, email };
     const accessKey = config.secretJwtAccess;
-    const expiresIn = config.jwtExpireTimeSec;
+    const expiresIn = `${config.jwtExpireTimeMs}ms`;
 
     const token = jwt.sign(payload, accessKey, { expiresIn });
     req.accessToken = token;

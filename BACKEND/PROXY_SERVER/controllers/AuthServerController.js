@@ -7,6 +7,7 @@ const maxAge   = parseInt(config.maxAge);
 const path     = config.path; 
 const secure   = Boolean(config.secure); 
 const signed   = Boolean(config.signed);
+const sameSite = config.sameSite;
 
 class AuthServerController{
     
@@ -14,7 +15,8 @@ class AuthServerController{
         this.apiKey = config.userApiKey;
         this.cookieName = 'idprot';
         this.URL = `${config.protocol}://${config.authServer}`;
-        this.cookieOptions = { httpOnly, maxAge, path, secure, signed };
+        this.cookieOptions = { httpOnly, maxAge, path, secure, signed, sameSite };
+        this.clearOptions = { secure, sameSite };
         this.init();
     }
 
@@ -80,7 +82,7 @@ class AuthServerController{
             const resp = await axios.delete(`${this.URL}/${endpoint}`,{ data: { code } });
 
             res
-                .clearCookie(this.cookieName)
+                .clearCookie(this.cookieName,this.clearOptions)
                 .status(200).json({ message: 'sucess' });
         }catch(err){
             next(err);

@@ -11,9 +11,10 @@ const config = {
     httpOnly:      process.env.HTTPONLY,
     maxAge:        process.env.MAXAGE,
     path:          process.env.COOKIE_PATH,
-    secure:        !process.env.ENV==='DEVELOPMENT',
+    secure:        process.env.SECURE,
     signed:        process.env.SIGNED,
     userApiKey:    process.env.USER_API_KEY,
+    sameSite:      process.env.SAMESITE,
 }
 
 module.exports = { config };

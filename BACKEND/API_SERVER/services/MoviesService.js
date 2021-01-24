@@ -96,7 +96,7 @@ class MoviesService{
                 "results": movieArray,
             }
         }else{
-            pageResults = { 'error': 'There is nothing here' };
+            pageResults = { 'error': 'There is nothing here', results:[] };
         }
 
         return pageResults

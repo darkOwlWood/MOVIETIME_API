@@ -42,8 +42,7 @@ class ApiServerController{
             const resp = await axios.get(`${this.URL}/${endpoint}?page=${page}${tags? `&tags=${tags}`:''}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
             let movieData = resp.data;
 
-            movieData = this.refactorPages(movieData,baseUrl,page);
-
+            !movieData.error && (movieData = this.refactorPages(movieData,baseUrl,page));
 
             res.send(movieData);
         }catch(err){
@@ -62,7 +61,7 @@ class ApiServerController{
             const resp = await axios.get(`${this.URL}/${endpoint}/${userId}?page=${page}`,{ headers:{ Authorization:`Bearer ${jwt}` } });
             let userMoviePage = resp.data;
 
-           userMoviePage = this.refactorPages(userMoviePage,baseUrl,page);
+            !userMoviePage.error && (userMoviePage = this.refactorPages(userMoviePage,baseUrl,page));
 
             res.send(userMoviePage);
         }catch(err){

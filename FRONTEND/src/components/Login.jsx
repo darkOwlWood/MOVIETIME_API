@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import '../assets/styles/components/FormCard.scss';
 
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getIsLog, getErrorCode } from '../moviesRedux/moviesSlice';
+import { getIsLog, getErrorCode } from '../moviesRedux/moviesSelector';
 import { loginUser } from '../moviesRedux/moviesThunk';
+import { cleanRequest } from '../moviesRedux/moviesSlice';
 
 const Login = () => {
 
@@ -13,6 +14,11 @@ const Login = () => {
     const isLog = useSelector(getIsLog);
     const errorCode = useSelector(getErrorCode);
     const [formData, setFormData] = useState({ email: '', password: '' });
+
+
+    useLayoutEffect(() => {
+        dispatch(cleanRequest);
+    },[]);
 
     const handleClick = () => dispatch(loginUser(formData));
 

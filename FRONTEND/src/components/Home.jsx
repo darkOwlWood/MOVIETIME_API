@@ -5,7 +5,7 @@ import Carousel from './Carousel';
 import SearchBox from '../components/SearchBox';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getMoviesSection, getUserMovieList } from '../moviesRedux/moviesSlice';
+import { getMoviesSection, getUserMovieList } from '../moviesRedux/moviesSelector';
 import { setMoviesSection, setUserMovies } from '../moviesRedux/moviesThunk';
 import { config } from '../config';
 

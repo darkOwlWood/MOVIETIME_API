@@ -7,9 +7,9 @@ import LoginLayout from './LoginLayout';
 import RegisterLayout from './RegisterLayout';
 import NotFound from '../components/NotFound';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getIsLog } from '../moviesRedux/moviesSlice';
+import { getIsLog } from '../moviesRedux/moviesSelector';
 
 const App = () => {
 
@@ -17,7 +17,7 @@ const App = () => {
 
     return (
         <>
-            <BrowserRouter>
+            <HashRouter>
                 <Switch>
                     <Route exact path="/" component={RootLayout} />
                     <Route exact path="/home" component={userIsLog ? HomeLayout : RootLayout} />
@@ -25,7 +25,7 @@ const App = () => {
                     <Route exact path="/register" component={userIsLog ? HomeLayout : RegisterLayout} />
                     <Route component={NotFound} />
                 </Switch>
-            </BrowserRouter>
+            </HashRouter>
         </>
     );
 }

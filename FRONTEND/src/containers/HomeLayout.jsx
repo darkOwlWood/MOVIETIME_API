@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 import { useSelector } from 'react-redux';
-import { getName } from '../moviesRedux/moviesSlice';
+import { getName } from '../moviesRedux/moviesSelector';
 
 const HomeLayout = () => {
  

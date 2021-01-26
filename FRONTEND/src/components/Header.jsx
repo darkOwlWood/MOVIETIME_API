@@ -4,7 +4,7 @@ import '../assets/styles/components/Header.scss';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getIsLog } from '../moviesRedux/moviesSlice';
+import { getIsLog } from '../moviesRedux/moviesSelector';
 import { logoutUser } from '../moviesRedux/moviesThunk';
 
 import logo from '../assets/static/logo.png'

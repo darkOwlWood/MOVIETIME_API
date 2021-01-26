@@ -17,7 +17,7 @@ const Login = () => {
 
 
     useLayoutEffect(() => {
-        dispatch(cleanRequest);
+        dispatch(cleanRequest());
     },[]);
 
     const handleClick = () => dispatch(loginUser(formData));

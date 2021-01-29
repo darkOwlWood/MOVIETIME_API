@@ -174,11 +174,10 @@ If everything goes right the server will return something like this:
 * Babel 7.12.10
 * Sass 1.32.2
 * Webpack 5.11.1
-* axios 0.21.1
-* react 17.0.1
-* react-dom 17.0.1
-* react-redux 7.2.2
-* react-router-dom 5.2.0
+* Axios 0.21.1
+* React DOM 17.0.1
+* React Redux 7.2.2
+* React Router DOM 5.2.0
 
 ## External resources
 * DB: https://www.mongodb.com/cloud/atlas

@@ -1,5 +1,6 @@
 # Movie Time API
-An api where tou can select your favotites movies
+In this API you could select from a list of movies your favotites to store it in a MongoDB instance and check it later, the only thing you need to do first is signin with a 
+valid email in order to start to use the API.
 
 ## Demo
 Link to the web page: https://frosty-cray-ae1c5a.netlify.app/
@@ -49,9 +50,9 @@ If everything goes right you can visit the direction of the servers in the brows
 
 ### Frontend
 
-First, from the FRONTEND directory you need go to the **config** directory, inside there is a index where you will see 2 variables, the first one **proxyUrl** is the url of the 
-proxy server nesesary to make all the requests to the API and authenticate. The second variable is **movieFilter** this is an array with should have 3 categories of the movie 
-list you want to apper in the home page to the user can select. After set the variables now you have to fallow the next instructions base on your needs.
+First, from the **FRONTEND** directory you need go to the **config** directory, inside there is a index where you will see 2 variables, the first one **proxyUrl** is the url of 
+the proxy server nesesary to make all the requests to the API and authenticate. The second variable is **movieFilter** this is an array that should have 3 categories of the 
+movie list you want to apper in the home page to the user can select. After set the variables now you have to fallow the next instructions base on your needs.
 
 #### Development ambient:
 If you want to start a dev ambient you should be at the root directory and execute the the next command in the console:
@@ -72,6 +73,85 @@ npm run build:production
 ```
 After run the previous command all the bundle generated will be in the dist directory, you can put all the content from dist in your web server ready to use.
 
+## Usage like admin
+At this point you had to been inserted the user roles in you MongoDB instance using the **ApiKeys.js** scripts in your **AUTH_SERVER** directory, when you do that, you should to 
+copy the token from the DB record that have more user roles because thats the admin one. Now follow the next steps to login in the **AUTH_SERVER** and get a JWT.
+
+
+### Login
+To login directly using the **AUTH SERVER** you will need to use the basic authentication (you can read more about it in
+https://en.wikipedia.org/wiki/Basic_access_authentication), you will need a random Hex string with 40 characters  generate by your own, this string will be use like you 
+challange code to generate moew JWT in the future when tou need it. If everything goes okey the server will return a code string separate with ":", the first part of the string 
+is your user id and the second one is you challange code you did send.
+
+Route to ***post***:
+```
+your_auth_server_url/auth/login
+```
+Request example:
+```
+Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+Content-Type: application/json
+{
+  "verify": "7c618594ffbccb2aa623c94acdc7aa46694a7dfe"
+}
+```
+If everything goes right the server will return something like this:
+```
+{
+  "name": "Username", 
+  "code": "b7a862fd251e6b4465a5486e:b7a862fd251e6b4465a548667b03511075b530ca"
+}
+```
+
+### Generate a JWT
+Now, with the code the **AUTH SERVER** return to you, you can generate a JWT. To do that you need to send the Api key for the admin user you previously inserted and your code 
+you did get by login. This JWT the server return to you is only valid by a period of time (time you should be configure when you turn up the servers) so, when it expires
+you have to repit this step.
+
+Route to ***post***:
+```
+your_auth_server_url/auth/token
+```
+Request example:
+```
+Content-Type: application/json
+{
+  "code": "b7a862fd251e6b4465a5486e:b7a862fd251e6b4465a548667b03511075b530ca",
+  "apiKey": "e44ea8b5f074daec0cf3a2c1f40d162fd0b59dd7"
+}
+```
+If everything goes right the server will return something like this:
+```
+{
+  "jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDBkMmI4NjVjZTIyNDAwMDk1N2VmNTciLCJzY29wZXMiOlsibW92aWVzOnJlYWQiLCJtb3ZpZXM6Y3JlYXRlIiwibW92aWVzOnVwZGF0ZSIsIm1vdmllczpkZWxldGUiLCJ1c2VyLW1vdmllczpyZWFkIiwidXNlci1tb3ZpZXM6Y3JlYXRlIiwidXNlci1tb3ZpZXM6ZGVsZXRlIl0sImlhdCI6MTYxMTg4MTAzNiwiZXhwIjoxNjExODgxOTM2fQ.ARO3ewVP6akcI0ErH7a4SN2E2ZT0QPNCSEXx6VTR6I0"
+}
+```
+
+### Request to the API
+At last, everytime to made a request to your **API SERVER** you have to include the Authorization header with a Bearer token that in this case is the JWT (you can read more 
+aboue that here https://swagger.io/docs/specification/authentication/bearer-authentication/) this will allow you to fetch and manipulate the data from your API and do whatever 
+you want like an admin. Just remenber that the token will expire after a time and you will have to generate another in order you could requests to the **API SERVER**.
+
+Route to ***request***:
+```
+your_api_server_url/name_of_the_route
+```
+Request example:
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDBkMmI4NjVjZTIyNDAwMDk1N2VmNTciLCJzY29wZXMiOlsibW92aWVzOnJlYWQiLCJtb3ZpZXM6Y3JlYXRlIiwibW92aWVzOnVwZGF0ZSIsIm1vdmllczpkZWxldGUiLCJ1c2VyLW1vdmllczpyZWFkIiwidXNlci1tb3ZpZXM6Y3JlYXRlIiwidXNlci1tb3ZpZXM6ZGVsZXRlIl0sImlhdCI6MTYxMTg4MTAzNiwiZXhwIjoxNjExODgxOTM2fQ.ARO3ewVP6akcI0ErH7a4SN2E2ZT0QPNCSEXx6VTR6I0
+Content-Type: <Base on the method>
+{
+  <Base on the method>
+}
+```
+If everything goes right the server will return something like this:
+```
+{
+  <Base on the method>
+}
+```
+
 ## Backend Built With
 * @hapi/boom 9.1.1
 * bcrypt 5.0.0
@@ -90,10 +170,15 @@ After run the previous command all the bundle generated will be in the dist dire
 * cookie-parser 1.4.5    
 
 ## Frontend Built With
-* React 17.0.0
-* Babel 7.12.3
-* Sass 1.27.0
-* Webpack 5.1.3
+* React 17.0.1
+* Babel 7.12.10
+* Sass 1.32.2
+* Webpack 5.11.1
+* axios 0.21.1
+* react 17.0.1
+* react-dom 17.0.1
+* react-redux 7.2.2
+* react-router-dom 5.2.0
 
 ## External resources
 * DB: https://www.mongodb.com/cloud/atlas

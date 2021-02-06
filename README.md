@@ -14,7 +14,8 @@ To install the project you should have:
 
 ### Install all the dependencies
 First, change to the root directory of the project, you will see 2 main diretories **BACKEND** and **FRONTEND**, in **BACKEND** there is 3 directories so, in order to install
-the dependencies you have to go to **API_SERVER**, **AUTH_SERVER**, **PROXY_SERVER** and **FRONTEND** (the first three are in the **BACKEND** directory) and inside each one execute the next command:
+the dependencies you have to go to **API_SERVER**, **AUTH_SERVER**, **PROXY_SERVER** and **FRONTEND** (this three are in the **BACKEND** directory) and inside each one execute 
+the next command:
 ```
 npm i
 ```
@@ -81,8 +82,8 @@ copy the token from the DB record that have more user roles because thats the ad
 ### Login
 To login directly using the **AUTH SERVER** you will need to use the basic authentication (you can read more about it in
 https://en.wikipedia.org/wiki/Basic_access_authentication), you will need a random Hex string with 40 characters  generate by your own, this string will be use like you 
-challange code to generate moew JWT in the future when tou need it. If everything goes okey the server will return a code string separate with ":", the first part of the string 
-is your user id and the second one is you challange code you did send.
+challange code to generate a new JWT in the future when you need it. If everything goes right the server will return a code string separate with ":", the first part of the 
+string is your user id and the second one is you challange code you did send.
 
 Route to ***post***:
 ```
@@ -106,8 +107,8 @@ If everything goes right the server will return something like this:
 
 ### Generate a JWT
 Now, with the code the **AUTH SERVER** return to you, you can generate a JWT. To do that you need to send the Api key for the admin user you previously inserted and your code 
-you did get by login. This JWT the server return to you is only valid by a period of time (time you should be configure when you turn up the servers) so, when it expires
-you have to repit this step.
+you did get by login. The JWT the server return to you is only valid by a period of time (time you should have configure when you turn up the servers) so, when it expires
+you have to repeat this step.
 
 Route to ***post***:
 ```

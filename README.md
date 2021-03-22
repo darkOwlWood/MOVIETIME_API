@@ -184,4 +184,4 @@ If everything goes right the server will return something like this:
 * DB: https://www.mongodb.com/cloud/atlas
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the GNU General Public License v3.0 - see the LICENSE.md file for details.

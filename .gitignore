@@ -197,4 +197,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node,react
+# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,node,react/
+PROXY_SERVER/BACKEND/public/*
+!PROXY_SERVER/BACKEND/public/.gitkeep

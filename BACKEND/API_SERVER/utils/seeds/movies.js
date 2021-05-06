@@ -1,4 +1,4 @@
-[
+const MovieList = [
     {
         "title": "Soul",
         "year": 2020,
@@ -733,3 +733,7 @@
         ]
     }
 ]
+
+module.exports = {
+    MovieList,
+}

@@ -28,7 +28,7 @@ class AuthController{
         const { user: { _id:userId }, body: { verify } } = req;
         try{
             const { userInfo:{ name }, code } = await this.authService.login(userId,verify);
-            res.status(code? 200 : 400).json({ name, code });
+            res.status(code? 201 : 400).json({ name, code });
         }catch(err){
             next(err);
         }

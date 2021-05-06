@@ -14,7 +14,7 @@ const authRoute = (app) => {
     router.post('/signin',validationHandler(UserCreateModel),authController.signin);
     router.post('/login',validationHandler(UserVerifyCode),passport.authenticate('basic',{ session: false }),authController.login);
     router.post('/token',validationHandler(UserIdVerifyAndKey),authController.generateJWT);
-    router.delete('/logout',validationHandler(UserIdAndVerify),authController.logout);
+    router.post('/logout',validationHandler(UserIdAndVerify),authController.logout);
 }
 
 module.exports = { authRoute };

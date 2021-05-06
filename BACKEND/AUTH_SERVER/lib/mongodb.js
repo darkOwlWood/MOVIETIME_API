@@ -1,26 +1,25 @@
 const { MongoClient } = require('mongodb');
 const { config } = require('../config');
 
-const USER     = config.dbUser;
+const USER =     config.dbUser;
 const PASSWORD = config.dbPassword;
-const HOST     = config.dbHost;
-const DB       = config.dbName;
+const HOST =     config.dbHost;
+const DB =       config.dbName;
 
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB}?retryWrites=true&w=majority`;
-// const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${HOST}/${DB}`;
+const MONGO_URI = config.dev ? `mongodb://${HOST}/${DB}` : `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB}?retryWrites=true&w=majority`;
 
-class MongoLib{
+class MongoLib {
 
-    constructor(){
+    constructor() {
         this.dbName = DB;
-        this.client = MongoClient(MONGO_URI,{ useNewUrlParser: true, useUnifiedTopology: true });
+        this.client = MongoClient(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
     }
 
-    connect(){
-        if(!MongoLib.connection){
-            MongoLib.connection = new Promise( (resolve, reject) => {
-                this.client.connect( err => {
-                    if(err){
+    connect() {
+        if (!MongoLib.connection) {
+            MongoLib.connection = new Promise((resolve, reject) => {
+                this.client.connect(err => {
+                    if (err) {
                         console.error(err);
                         reject(err);
                         return;
@@ -33,53 +32,53 @@ class MongoLib{
         return MongoLib.connection;
     }
 
-    selectById(collection, query){
+    selectById(collection, query) {
         return this.connect()
-            .then( db => {
+            .then(db => {
                 return db
-                .collection(collection)
-                .find(query)
-                .toArray();
+                    .collection(collection)
+                    .find(query)
+                    .toArray();
             });
     }
 
-    insert(collection, data){
+    insert(collection, data) {
         return this.connect()
-            .then( db => {
+            .then(db => {
                 return db
-                .collection(collection)
-                .insertOne(data);
+                    .collection(collection)
+                    .insertOne(data);
             })
-            .then( result => result.insertedId );
+            .then(result => result.insertedId);
     }
 
-    delete(collection, query){
+    delete(collection, query) {
         return this.connect()
-            .then( db => {  
+            .then(db => {
                 return db
                     .collection(collection)
                     .deleteOne(query);
             })
-            .then( result => result.deletedCount );
+            .then(result => result.deletedCount);
     }
 
-    update(collection, query, data){
+    update(collection, query, data) {
         return this.connect()
-            .then( db => {
+            .then(db => {
                 return db
                     .collection(collection)
-                    .updateOne(query,data);
+                    .updateOne(query, data);
             })
-            .then( result => result.modifiedCount );
+            .then(result => result.modifiedCount);
     }
 
-    getTotalDocumetns(collection, query){
+    getTotalDocumetns(collection, query) {
         return this.connect()
-            .then( db => {
+            .then(db => {
                 return db
-                .collection(collection)
-                .find(query)
-                .count();
+                    .collection(collection)
+                    .find(query)
+                    .count();
             });
     }
 }

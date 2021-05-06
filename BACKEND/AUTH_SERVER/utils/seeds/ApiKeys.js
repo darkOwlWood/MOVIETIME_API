@@ -3,9 +3,9 @@ const crypto = require('crypto');
 
 const COLLECTION = 'api.keys';
 
-const [ , , USER, PASSWORD, HOST, DB ] = process.argv;
+const [, , DEV, HOST, DB, USER, PASSWORD,] = process.argv;
 
-const URI = `mongodb://${USER}:${PASSWORD}@${HOST}/${DB}`;
+const URI = DEV==='development'? `mongodb://${HOST}/${DB}` : `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DB}`;
 
 const adminScpopes = [
     'movies:read',
@@ -35,17 +35,17 @@ const ApiKeys = [
     }
 ];
 
-function generateRandomToken(){
+function generateRandomToken() {
     return crypto.randomBytes(20).toString('hex');
 }
 
 (async () => {
-    try{
-        const client = MongoClient(URI, { useUnifiedTopology:true, useNewUrlParser:true });
-    
-        const connection = await new Promise( (resolve, reject) => {
-            client.connect( err => {
-                if(err){
+    try {
+        const client = MongoClient(URI, { useUnifiedTopology: true, useNewUrlParser: true });
+
+        const connection = await new Promise((resolve, reject) => {
+            client.connect(err => {
+                if (err) {
                     console.error(err);
                     reject(err);
                     return;
@@ -59,7 +59,7 @@ function generateRandomToken(){
         console.log(ids);
 
         process.exit(0);
-    }catch(err){
+    } catch (err) {
         console.error(err);
         process.exit(-1);
     }

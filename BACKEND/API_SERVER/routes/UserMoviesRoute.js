@@ -10,19 +10,19 @@ const { UserIdModel, UserMoviesCreateDeleteModel } = require('../models/UserMovi
 require('../utils/auth/jwt');
 
 const userMoviesRoute = (app) => {
-    app.use('/userMovies',router);
+    app.use('/userMovies', router);
 
     router.get(
         '/:userId',
-        passport.authenticate('jwt',{ session:false }),
+        passport.authenticate('jwt', { session: false }),
         validationScopeHandler(['user-movies:read']),
-        validationHandler(UserIdModel,'params'),
+        validationHandler(UserIdModel, 'params'),
         userMoviesController.getUserMoviesByPage
     );
 
     router.post(
         '/',
-        passport.authenticate('jwt',{ session:false }),
+        passport.authenticate('jwt', { session: false }),
         validationScopeHandler(['user-movies:create']),
         validationHandler(UserMoviesCreateDeleteModel),
         userMoviesController.insertUserMovies
@@ -30,9 +30,9 @@ const userMoviesRoute = (app) => {
 
     router.delete(
         '/:userId/:movieId',
-        passport.authenticate('jwt',{ session:false }),
+        passport.authenticate('jwt', { session: false }),
         validationScopeHandler(['user-movies:delete']),
-        validationHandler(UserMoviesCreateDeleteModel,'params'),
+        validationHandler(UserMoviesCreateDeleteModel, 'params'),
         userMoviesController.deleteUserMovies
     );
 };

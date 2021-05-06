@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const config = {
     port:            process.env.PORT,
-    developMode:     process.env.ENV==='DEVELOPMENT',
+    dev:             process.env.DEV==='development',
     pageSize:        process.env.PAGE_SIZE,
     dbUser:          process.env.DB_USER,
     dbName:          process.env.DB_NAME,

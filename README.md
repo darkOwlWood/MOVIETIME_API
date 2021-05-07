@@ -3,7 +3,7 @@ In this API you could select from a list of movies your favotites to store it in
 valid email in order to start to use the API.
 
 ## Demo
-Link to the web page: https://frosty-cray-ae1c5a.netlify.app/
+Link to the web page: https://build-in-movietime-frontend.vercel.app/
 
 ## Getting Started
 

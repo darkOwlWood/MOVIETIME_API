@@ -1,9 +1,11 @@
 # Movie Time API
-In this API you could select from a list of movies your favotites to store it in a MongoDB instance and check it later, the only thing you need to do first is signin with a 
-valid email in order to start to use the API.
+In this API you could select from a list of movies your favotites to store it in a MongoDB instance and check it later, the only thing you need to do first is
+signin with a valid email in order to start to use the API.
 
 ## Demo
 Link to the web page: https://build-in-movietime-frontend.vercel.app/
+The user is: test@gmai.com
+The password is: 111111111A
 
 ## Getting Started
 
@@ -13,66 +15,64 @@ To install the project you should have:
 * npm 6.14.8
 
 ### Install all the dependencies
-First, change to the root directory of the project, you will see 2 main diretories **BACKEND** and **FRONTEND**, in **BACKEND** there is 3 directories so, in order to install
-the dependencies you have to go to **API_SERVER**, **AUTH_SERVER**, **PROXY_SERVER** and **FRONTEND** (this three are in the **BACKEND** directory) and inside each one execute 
-the next command:
+First, change to the root directory of the project, you will see 3 main diretories **API_SERVER** and **AUTH_SERVER** and **PROXY_SERVER**, the last one have 2
+important directories **BACKEND** and **FRONTEND** so, in order to install the dependencies you have to go to **API_SERVER**, **AUTH_SERVER**,
+**PROXY_SERVER/BACKNED**, **PROXY_SERVER/FRONTEND** and inside each one execute the next command:
 ```
 npm i
 ```
 
 ---
 
-### Backend
-In **BACKEND** directory the 3 directories that are there correspond to the 3 servers that this project needs to work and they are:
-* API_SERVER
-* AUTH_SERVER
-* PROXY_SERVER
+### Setup the main directories and turn on the API and AUTH server
 
-The **API_SERVER** is in charge to communicate with the database and fetch or manipulate the movie records base on the user rigths and the route selected. The **AUTH_SERVER**
-is use to register the user, authenticate the user and generate the jwt to let the user use the API routes base on their privilages. At last the **PROXY_SERVER** is use to 
-comunicate the **BACKEND** with the **FRONTEND** and generate the cookies where the jwt will store, this last server is pretend be use only to the final user, to use the admin
-user is recomended connect dirrectly the **AUTH_SERVER** to authenticate and generate the jwt in order to connect with the **API_SERVER**.
+The **API_SERVER** is in charge to communicate with the database, fetch and manipulate the movie records base on the user rigths and the route selected. 
+The **AUTH_SERVER** is use to register the user, authenticate the user and generate the jwt to let the user use the API routes base on their privilages. 
+At last the **PROXY_SERVER** is use to comunicate the **FRONTEND** with the **API_SERVER** and **AUTH_SERVER** as well as generate the cookies where the jwt will be store. This last server is pretend be use only to the final common user, to use the admin user is recomended connect dirrectly to the **AUTH_SERVER** for authenticate and generate the jwt in order to connect with the **API_SERVER**.
 
-First, you have to execute the script ***ApiKeys.js*** in **AUTH_SERVER** directory , this script will create the user roles to use the API, one for the common user and another 
-for the admins. The only thing you need to pass to the script is the data of you MongoDB instance, it could be in a cloud or local instance thats depens on you.
+To start to use it this project you need first execute the script ***ApiKeys.js*** in **AUTH_SERVER** directory , this script will create the user roles to use
+the API, one role for the common users and another for the admins. The only thing you need pass to the script is the data of you MongoDB instance, it could be in a cloud or local instance, thats depens on you.
 
-Second, to start each server you have to create a ***.env*** file in the root directory of each them, to fill this file you have to seek in the ***.env-example*** of each server 
-directory to see what environment variables it needs. In the ***.env-example*** explains what is use for each environment variable. After you finish to create the ***.env*** 
-files for the thre servers you can turn up them with the next comand:
+Second, before start each server you have to create a ***.env*** file in the root directory of **API_SERVER**, **AUTH_SERVER**, **PROXY_SERVER/BACKNED**, and
+**PROXY_SERVER/FRONTEND** to fill each one of this files you have to seek in the ***.env-example*** of each of this directories to see what environment variables 
+it needs. After you finish to create the ***.env*** files, you can turn up the **API_SERVER** and **AUTH_SERVER** with the next comand:
 ```
 npx nodemon
 ```
-Of course you need to run this command in the root rirectory for the three servers one by one and I recoment you to start with the **API SERVER** and **AUTH SERVER** because
-the **PROXY SERVER** depends of the first two.
-
-If everything goes right you can visit the direction of the servers in the browser and their should give you a **Not Found in a JSON response**.
+To turn up the **PROXY_SERVER/BACKNED** you first need to build the bundle of the frontend page located in the directory **PROXY_SERVER/FRONTEND** and then place the result files from the compilation from **PROXY_SERVER/FRONTEND/dist** to **PROXY_SERVER/BACKNED/public**.
+In the next secction this will be more detailed.
 
 ---
 
-### Frontend
+### Compile the frontend page and turn on the PROXY SERVER
 
-First, from the **FRONTEND** directory you need go to the **config** directory, inside there is a index where you will see 2 variables, the first one **proxyUrl** is the url of 
-the proxy server nesesary to make all the requests to the API and authenticate. The second variable is **movieFilter** this is an array that should have 3 categories of the 
-movie list you want to apper in the home page to the user can select. After set the variables now you have to fallow the next instructions base on your needs.
+Once you already have the **.env** file in the **PROXY_SERVER/FRONTEND** directory with all the everioment variables filled, you can build the bundle and start any of the follow ambients (The **Development frontend ambient** is just for test the look of the page, this one doesnt connect with the **PROXY_SERVER** in anyway).
 
-#### Development ambient:
-If you want to start a dev ambient you should be at the root directory and execute the the next command in the console:
+#### Development frontend ambient:
+If you want to start a dev ambient you should be at the **PROXY_SERVER/FRONTEND** directory and execute the the next command in the console:
 ```
-npm run build:dev
+dev:build-dll
 ```
-After executing the previous command you will notice a new directory called dist, this is where are the React bundles.
+After executing the previous command you will notice a new directory called dist, this is where are the React bundles of the dll's.
 Now to run a dev server:
 ```
-npm run start-server:dev
+npm run dev:build-server
 ```
 After that go head to your web browser and write `localhost:8080` the web page should be up and ready to use.
 
-#### Production ambient
-To build a production bundle you can run the next command:
+#### Proxy ambient
+To build a bundle and you can run one the next 2 commands:
 ```
-npm run build:production
+npm run prod:build-all
+or
+npm run dev:build-all
 ```
-After run the previous command all the bundle generated will be in the dist directory, you can put all the content from dist in your web server ready to use.
+After run the previous command all the bundle generated will be in the dist directory, you can put all the content from dist in the **PROXY_SERVER/BACKEND/public** directory an after that run the next command under the **PROXY_SERVER/BACKEND** directory.
+
+```
+npx nodemon
+```
+At this point according to the port you did set in the .env file from the **PROXY_SERVER/BACKEND** you only need to go to the browser and search the page like this: http:localhost:the_port_selected.
 
 ## Usage like admin
 At this point you had to been inserted the user roles in you MongoDB instance using the **ApiKeys.js** scripts in your **AUTH_SERVER** directory, when you do that, you should to 
@@ -179,6 +179,11 @@ If everything goes right the server will return something like this:
 * React DOM 17.0.1
 * React Redux 7.2.2
 * React Router DOM 5.2.0
+* Formik 2.2.6
+* Yup 0.32.9
+* @material-ui/core 4.11.3
+* @material-ui/icons 4.11.2
+* @reduxjs/toolkit 1.5.1
 
 ## External resources
 * DB: https://www.mongodb.com/cloud/atlas

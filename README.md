@@ -3,8 +3,8 @@ In this API you could select from a list of movies your favotites to store it in
 signin with a valid email in order to start to use the API.
 
 ## Demo
-Link to the web page: https://build-in-movietime-frontend.vercel.app/
-The user is: test@gmai.com
+Link to the web page: https://build-in-movietime-frontend.vercel.app/ \
+The user is: test@gmai.com\
 The password is: 111111111A
 
 ## Getting Started

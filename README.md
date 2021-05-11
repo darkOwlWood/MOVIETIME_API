@@ -67,7 +67,7 @@ npm run prod:build-all
 or
 npm run dev:build-all
 ```
-After run the previous command all the bundle generated will be in the dist directory, you can put all the content from dist in the **PROXY_SERVER/BACKEND/public** directory an after that run the next command under the **PROXY_SERVER/BACKEND** directory.
+After run the previous command all the bundle generated will be in the dist directory, you can put all the content from dist in the **PROXY_SERVER/BACKEND/public** directory and after that run the next command under the **PROXY_SERVER/BACKEND** directory.
 
 ```
 npx nodemon
